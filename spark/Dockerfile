@@ -10,6 +10,10 @@ RUN install_packages curl
 RUN curl -sS -L -O https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark-runtime-3.5_2.12/1.5.0/iceberg-spark-runtime-3.5_2.12-1.5.0.jar \
     && mv iceberg-spark-runtime-3.5_2.12-1.5.0.jar /opt/bitnami/spark/jars/
 
+# 1.1 Iceberg AWS Bundle (Required for S3FileIO)
+RUN curl -sS -L -O https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-aws-bundle/1.5.0/iceberg-aws-bundle-1.5.0.jar \
+    && mv iceberg-aws-bundle-1.5.0.jar /opt/bitnami/spark/jars/
+
 # 2. Hadoop AWS (Check spark jars for hadoop version first, usually 3.3.4 for Spark 3.5)
 # Bitnami Spark 3.5 usually ships with Hadoop 3.3.4 libraries.
 RUN curl -sS -L -O https://repo1.maven.org/maven2/org/apache/hadoop/hadoop-aws/3.3.4/hadoop-aws-3.3.4.jar \

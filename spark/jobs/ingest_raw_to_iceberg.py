@@ -19,15 +19,6 @@ def main():
         df = spark.read.parquet(raw_path)
     except Exception as e:
         print(f"Error reading raw data: {e}")
-        # Create dummy data if no data exists for demonstration
-        print("Creating dummy data for demonstration...")
-        data = [
-            ("2023-01-01 10:00:00", "2023-01-01 10:15:00", 1.5, 10.0),
-            ("2023-01-01 10:30:00", "2023-01-01 10:45:00", 2.0, 15.0),
-            ("2023-01-02 11:00:00", "2023-01-02 11:30:00", 5.0, 30.0)
-        ]
-        columns = ["tpep_pickup_datetime", "tpep_dropoff_datetime", "trip_distance", "total_amount"]
-        df = spark.createDataFrame(data, columns)
 
     # Clean / Transform
     df_clean = df.withColumn("pickup_time", to_timestamp(col("tpep_pickup_datetime"))) \
