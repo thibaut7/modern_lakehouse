@@ -26,12 +26,16 @@ def main():
     daily_stats.show()
 
     # 3. Write to Postgres Datamart
-    # JDBC URL should be reachable from Spark worker
-    jdbc_url = "jdbc:postgresql://postgres:5432/lakehouse"
+    import os
+    pg_user = os.getenv("POSTGRES_USER", "admin")
+    pg_pass = os.getenv("POSTGRES_PASSWORD", "password")
+    pg_db = os.getenv("POSTGRES_DB", "lakehouse")
+
+    jdbc_url = f"jdbc:postgresql://postgres:5432/{pg_db}"
     table_destination = "datamart.daily_trip_stats"
     properties = {
-        "user": "admin",
-        "password": "password",
+        "user": pg_user,
+        "password": pg_pass,
         "driver": "org.postgresql.Driver"
     }
 

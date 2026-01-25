@@ -73,7 +73,7 @@ services:
     container_name: lakehouse-spark-master
     command: bin/spark-class org.apache.spark.deploy.master.Master
     ports:
-      - "8085:8080"
+      - "8085:8081"
       - "7077:7077"
     environment:
       - SPARK_MODE=master

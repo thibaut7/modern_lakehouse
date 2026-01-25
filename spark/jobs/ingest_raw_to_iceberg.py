@@ -29,6 +29,12 @@ def main():
                  .withColumn("pickup_month", month(col("tpep_pickup_datetime"))) \
                  .withColumn("pickup_year", year(col("tpep_pickup_datetime")))
 
+    # Preview data
+    print("DataFrame Schema:")
+    df_clean.printSchema()
+    print("Preview (Top 2 rows):")
+    df_clean.show(2, truncate=False)
+
     # 2. Write to Iceberg
     table_name = "my_catalog.default.nyc_taxi_trips"
     

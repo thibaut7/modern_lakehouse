@@ -37,7 +37,7 @@ docker exec lakehouse-spark-master spark-submit \
     --conf spark.hadoop.fs.s3a.endpoint=http://minio:9000 \
     --conf spark.hadoop.fs.s3a.access.key=${MINIO_USER} \
     --conf spark.hadoop.fs.s3a.secret.key=${MINIO_PASS} \
-    --conf spark.hadoop.fs.s3a.path-style-access=true \
+    --conf spark.hadoop.fs.s3a.path.style.access=true \
     --conf spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem \
     --conf spark.hadoop.fs.s3a.connection.ssl.enabled=false \
     --verbose \
