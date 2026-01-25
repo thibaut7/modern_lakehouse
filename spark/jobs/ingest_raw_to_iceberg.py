@@ -19,6 +19,8 @@ def main():
         df = spark.read.parquet(raw_path)
     except Exception as e:
         print(f"Error reading raw data: {e}")
+        spark.stop()
+        return
 
     # Clean / Transform
     df_clean = df.withColumn("pickup_time", to_timestamp(col("tpep_pickup_datetime"))) \
