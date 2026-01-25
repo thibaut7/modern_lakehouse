@@ -87,6 +87,8 @@ services:
       - AWS_REGION=us-east-1
       # Connectors are built-in via Dockerfile, but can be added here as packages too.
       # Ideally we use spark-defaults.conf or pass packages in submit command.
+    volumes:
+      - ./spark:/opt/bitnami/spark/jobs
     networks:
       - lakehouse-net
 
@@ -107,7 +109,10 @@ services:
       # AWS/S3 Config
       - AWS_ACCESS_KEY_ID=${MINIO_ROOT_USER}
       - AWS_SECRET_ACCESS_KEY=${MINIO_ROOT_PASSWORD}
+      - AWS_SECRET_ACCESS_KEY=${MINIO_ROOT_PASSWORD}
       - AWS_REGION=us-east-1
+    volumes:
+      - ./spark:/opt/bitnami/spark/jobs
     networks:
       - lakehouse-net
 

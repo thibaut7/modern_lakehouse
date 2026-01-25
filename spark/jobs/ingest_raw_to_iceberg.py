@@ -12,11 +12,11 @@ def main():
 
     # 1. Read Raw Data (Parquet or CSV)
     # We assume data is in s3a://raw-data/nyc-taxi/
-    raw_path = "s3a://raw-data/nyc-taxi/"
+    raw_path = "s3a://raw-data/"
     
     print(f"Reading raw data from {raw_path}...")
     try:
-        df = spark.read.option("header", "true").option("inferSchema", "true").csv(raw_path)
+        df = spark.read.parquet(raw_path)
     except Exception as e:
         print(f"Error reading raw data: {e}")
         # Create dummy data if no data exists for demonstration
