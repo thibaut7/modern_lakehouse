@@ -2,7 +2,7 @@
 
 ![Project Header](./modern_lakehouse_architecture_vibe.png)
 
-This project demonstrates a production-grade **Modern Data Lakehouse** architecture running entirely on a local Dockerized environment. It handles high-volume data ingestion, scalable processing, efficient serving, and **full-stack observability** using the latest industry standards.
+This project demonstrates a production-grade **Modern Data Lakehouse** architecture running entirely on a local Dockerized environment. It handles high-volume data ingestion, scalable processing, efficient serving, **full-stack observability**, and **data governance** using the latest industry standards.
 
 ## 🏗️ Architecture
 
@@ -21,6 +21,13 @@ graph TD
     
     subgraph "Data Serving (Gold)"
         F -- Aggregations --> G[(PostgreSQL Datamart)]
+    end
+
+    subgraph "Governance & Metadata"
+        O[OpenMetadata] -- Crawls --> C
+        O -- Crawls --> E
+        O -- Crawls --> G
+        S[(Elasticsearch)] -.-> O
     end
 
     subgraph "Observability Hub (Monitoring & Logs)"
@@ -43,6 +50,10 @@ graph TD
 -   **Compute**: [Apache Spark 3.5](https://spark.apache.org/) (Distributed PySpark processing)
 -   **Serving**: [PostgreSQL](https://www.postgresql.org/) (Relational datamart)
 
+### Data Governance (New 🌟)
+-   **Catalog**: [OpenMetadata](https://open-metadata.org/) (Discovery, Collaboration, and Governance)
+-   **Search**: Elasticsearch (Powered by the shared Observability cluster)
+
 ### Observability Hub
 -   **Logs**: [ELK Stack](https://www.elastic.co/elastic-stack) (Elasticsearch, Logstash, Metricbeat)
 -   **Metrics**: [Prometheus](https://prometheus.io/) & [Postgres Exporter](https://github.com/prometheus-community/postgres_exporter)
@@ -51,6 +62,7 @@ graph TD
 ## 🌟 Key Features
 
 -   **ACID Data Lake**: Database-like reliability on S3 storage using Iceberg.
+-   **Data Governance**: Unified catalog to discover data assets across the lake and databases.
 -   **Full Observability**: Real-time monitoring of container health, database performance, and ETL logs.
 -   **Data Mesh Principles**: Domain-driven separation between ingestion, processing, and serving.
 -   **Automated Provisioning**: Grafana is pre-configured with Prometheus and Elasticsearch data sources.
@@ -72,7 +84,8 @@ docker-compose up -d --build
 ./submit_job.sh jobs/compute_datamart.py
 ```
 
-### 3. Monitor
+### 3. Monitor & Govern
+-   **OpenMetadata**: `http://localhost:8585` (admin / admin)
 -   **Grafana**: `http://localhost:3003` (admin / admin)
 -   **Prometheus**: `http://localhost:9090`
 -   **NiFi**: `https://localhost:8443/nifi`
@@ -81,8 +94,7 @@ docker-compose up -d --build
 ## 📊 Demonstrated Skills
 
 -   **Cloud Native Data Engineering**: Building scalable architectures with Docker & S3.
+-   **Data Governance**: Implementing OpenMetadata for asset discovery and lineage.
 -   **Infrastructure Observability**: Implementing complete ELK and Prometheus/Grafana stacks.
 -   **Distributed Processing**: Optimizing PySpark jobs for massive data volume.
 -   **Open Table Formats**: Mastering Apache Iceberg for modern lakehouse design.
-
-
